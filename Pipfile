@@ -1,0 +1,18 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+
+[packages]
+
+django = "*"
+gunicorn = "*"
+django-heroku = "*"
+whitenoise = "*"
+psycopg2-binary = “*”
+
+
+[requires]
+
+python_version = "3.6"
