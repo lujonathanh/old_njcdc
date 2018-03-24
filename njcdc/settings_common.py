@@ -74,7 +74,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'njcdc.wsgi.application'
 
 
-# DATABASES
+# DATABASES (usually overwritten by local file: settings.py)
 
 DATABASES = {
     'default': {
