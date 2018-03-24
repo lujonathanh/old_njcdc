@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+{% block 'content' %}
+
+<table class="results">
+    <tr><td>Benefit</td><td>{{ up.benefit }}</td></tr>
+    <tr><td>Elec Cost</td><td>{{ up.elec_cost }}</td></tr>
+    <tr><td>Gasoline Cost</td><td>{{ up.gasoline_cost }}</td></tr>
+    <tr><td>Heating Cost</td><td>{{ up.heating_cost }}</td></tr>
+    <tr><td>Total Cost</td><td>{{ up.total_cost }}</td></tr>
+    <tr><td>Net</td><td>{{ up.net }}</td></tr>
+
+</table>
+
+{% endblock %}
+
+</body>
+</html>
