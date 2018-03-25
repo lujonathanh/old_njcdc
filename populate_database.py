@@ -55,3 +55,5 @@ z = Zipcode(zipcode=1,
             total_zipcode_footprint=17,
             )
 
+# Zipcode.objects.get(zipcode=7017)
+
