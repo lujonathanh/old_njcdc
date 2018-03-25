@@ -22,5 +22,5 @@ class Zipcode(models.Model):
     total_zipcode_footprint = models.FloatField()
     
     def __str__(self):
-        return str(self.number) + " with footprint " +\
-        	str(total_zipcode_footprint)
+        return str(self.zipcode) + " with footprint " +\
+        	str(self.total_zipcode_footprint)

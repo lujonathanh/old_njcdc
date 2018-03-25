@@ -15,6 +15,8 @@ import dj_database_url
 import django_heroku
 from .settings_common import *
 
+ALLOWED_HOSTS = [".herokuapp.com/", "127.0.0.1", "njcdc.herokuapp.com"]
+
 # DATABASES
 
 DATABASES = {

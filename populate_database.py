@@ -1,3 +1,5 @@
+# a file that contains various code snippets for populating the heroku database
+
 import pandas as pd
 
 from zipcode_data.models import Zipcode
@@ -52,3 +54,4 @@ z = Zipcode(zipcode=1,
             households_per_zipcode=16,
             total_zipcode_footprint=17,
             )
+

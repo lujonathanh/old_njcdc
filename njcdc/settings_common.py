@@ -74,23 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'njcdc.wsgi.application'
 
-
-# DATABASES (usually overwritten by local file: settings.py)
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'njcdc',
-        'USER': 'dcw3',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
