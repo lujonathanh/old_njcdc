@@ -3,10 +3,24 @@ from django.db import models
 # Create your models here.
 
 class Zipcode(models.Model):
-    number = models.IntegerField(default=-1)
-    vehicle_miles = models.IntegerField(default=0)
+    zipcode = models.IntegerField()
+    population = models.IntegerField()
+    persons_per_household = models.FloatField()
+    average_house_value = models.FloatField()
+    income_per_household = models.FloatField()
+    electricity = models.FloatField()
+    nat_gas = models.FloatField()
+    fuel_oil = models.FloatField()
+    vehic_miles_traveled = models.FloatField()
+    transport = models.FloatField()
+    housing = models.FloatField()
+    food = models.FloatField()
+    goods = models.FloatField()
+    services = models.FloatField()
+    total_household_footprint = models.FloatField()
+    households_per_zipcode = models.IntegerField()
+    total_zipcode_footprint = models.FloatField()
     
     def __str__(self):
-        return "zip code: " + str(self.number)
-    def lots_of_miles(self):
-        return self.vehicle_miles > 10000
+        return str(self.number) + " with footprint " +\
+        	str(total_zipcode_footprint)
