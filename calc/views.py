@@ -10,6 +10,11 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def about(request):
+    template = loader.get_template('calc/about.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
 def input(request):
     if request.method == 'POST':
         input_form = InputForm(request.POST)
