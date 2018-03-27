@@ -26,6 +26,7 @@ def input(request):
             messages.success(request, "Thank you for entering")
             #return HttpResponseRedirect(reverse('input'))
             #return HttpResponseRedirect(reverse('index'))
+            # return HttpResponseRedirect(reverse('results', args=[3,]))
             return HttpResponseRedirect(reverse('results', args=(user.id,)))
             # return HttpResponseRedirect(reverse('results', kwargs={'id' : input_form.instance.id}))
 
@@ -41,6 +42,7 @@ def input(request):
     return HttpResponse(template.render(context, request))
 
 def results(request, id):
+# def results(request):
     # response = "You're looking at the results of entering with profile %s."
     print("Arrived")
 
@@ -48,5 +50,6 @@ def results(request, id):
     up.calculate_net()
 
     template = loader.get_template('calc/results.html')
+    # context = {'id': id}
     context = {'up' : up}
     return HttpResponse(template.render(context, request))

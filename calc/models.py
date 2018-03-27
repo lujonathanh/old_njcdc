@@ -31,15 +31,15 @@ class UserProfile(models.Model):
     fee = models.FloatField(default=30., validators=[validate_nonnegative])
     rebate_portion = models.FloatField(default=0.7, validators=[validate_0to1])
 
-    adults = models.PositiveIntegerField()
-    children = models.PositiveIntegerField()
+    adults = models.PositiveIntegerField(default=1)
+    children = models.PositiveIntegerField(default=1)
     CHILD_MULTIPLIER = 0.5
 
     ##############    GASOLINE    ##############
 
     # the fundamental unit: gasoline in gallons per month
     GASOLINE_CHOICES = (('e10', '10% Ethanol'), ('e0', 'Pure Gasoline'), ('diesel', 'Diesel'), ('b20', '20% Biodiesel'))
-    gasoline_amt = models.FloatField(validators=[validate_nonnegative])
+    gasoline_amt = models.FloatField(default=1.0, validators=[validate_nonnegative])
     gasoline_type = models.CharField(choices=GASOLINE_CHOICES, default='e10', max_length=6)
 
     # gallon of gas to tons of CO2
@@ -52,7 +52,7 @@ class UserProfile(models.Model):
     # the fundamental unit: electricity in kWh per month
     ELEC_CHOICES = ( ('pseg', 'PSE&G'), ('rockland', 'Orange Rockland Electric'),
                      ('jcpl', 'Jersey Central Power & Light'), ('atlantic', 'Atlantic City Electric'))
-    elec_amt = models.FloatField(validators=[validate_nonnegative])
+    elec_amt = models.FloatField(default=1.0, validators=[validate_nonnegative])
     elec_type = models.CharField(choices=ELEC_CHOICES, default='pseg', max_length=8)
 
     ELEC_CO2_MULTIPLIER_DICT = {'pseg': 0.0003441034104, 'rockland': 0.0004169606023, 'jcpl': 0.0004644724986, 'atlantic': 0.0004626444685}
@@ -61,7 +61,7 @@ class UserProfile(models.Model):
 
     # the fundamental unit: therm for gas, gallons for fuel oil, kWh for elec
     HEATING_CHOICES = ( ('gas', 'Natural Gas'), ('fuel', 'Fuel Oil'), ('elec', 'Electricity'))
-    heating_amt = models.FloatField(validators=[validate_nonnegative])
+    heating_amt = models.FloatField(default=1.0, validators=[validate_nonnegative])
     heating_type = models.CharField(choices=HEATING_CHOICES, default='gas', max_length=4)
     HEATING_UNITS_DICT = {'gas': 'therm', 'fuel': 'gallon', 'elec': 'kWh'}
 
