@@ -6,7 +6,14 @@ from .forms import InputForm
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the calc index.")
+    template = loader.get_template('calc/index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def about(request):
+    template = loader.get_template('calc/about.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 
 def input(request):
     if request.method == 'POST':
