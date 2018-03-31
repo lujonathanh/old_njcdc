@@ -7,7 +7,7 @@ from zipcode_data.models import Zipcode
 data = pd.read_table("data/zip_code_data.txt", dtype=str)
 
 # column names
-used_cols =  ['ZipCode', 'Population', 'PersonsPerHousehold', 'AverageHouseValue',
+cols =  ['ZipCode', 'Population', 'PersonsPerHousehold', 'AverageHouseValue',
        'IncomePerHousehold', 'electricity (kWh)', 'Nat. Gas (cu.ft.)',
        'FUELOIL (gallons)', 'Vehicle miles traveled', 'Transport (tCO2e/yr)',
        'Housing (tCO2e/yr)', 'Food (tCO2e/yr)', 'Goods (tCO2e/yr)',
