@@ -11,6 +11,16 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def plot(request):
+    template = loader.get_template('calc/plot.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def chart(request):
+    template = loader.get_template('calc/chart.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
 def about(request):
     template = loader.get_template('calc/about.html')
     context = {}
@@ -47,9 +57,13 @@ def results(request, id):
     print("Arrived")
 
     up = UserProfile.objects.get(id=id)
+
     up.calculate_net()
 
     template = loader.get_template('calc/results.html')
     # context = {'id': id}
     context = {'up' : up}
     return HttpResponse(template.render(context, request))
+
+
+    
