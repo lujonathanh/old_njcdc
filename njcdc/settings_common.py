@@ -53,6 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# simple cached data
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
 ROOT_URLCONF = 'njcdc.urls'
 
 TEMPLATES = [

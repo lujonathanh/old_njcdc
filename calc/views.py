@@ -3,7 +3,6 @@ from django.template import loader
 from django.contrib import messages
 from django.urls import reverse
 from .forms import InputForm
-from .models import UserProfile
 
 
 def index(request):
@@ -31,9 +30,12 @@ def input(request):
         input_form = InputForm(request.POST)
 
         if input_form.is_valid():
-            user = input_form.save()
+            user = input_form.save(commit=False)
+            request.session["user"] = user
             messages.success(request, "Thank you for entering")
-            return HttpResponseRedirect(reverse('results', args=(user.id,)))
+
+            return HttpResponseRedirect(reverse('results'))
+
         messages.error(request, 'There were errors. Please try again.')
     else:
         input_form = InputForm()
@@ -42,10 +44,8 @@ def input(request):
     context = {'input_form': input_form, 'formtitle': "Input"}
     return HttpResponse(template.render(context, request))
 
-def results(request, id):
-    print("Arrived")
-
-    up = UserProfile.objects.get(id=id)
+def results(request):
+    up = request.session["user"]
 
     up.calculate_net()
 
