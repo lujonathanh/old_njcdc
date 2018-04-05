@@ -9,6 +9,12 @@
     <meta charset="UTF-8">
     <title>Carbon Dividend Calculator</title>
 
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+   rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.5/js/mdb.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -131,6 +137,33 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
+
+<script>
+    $(function() {
+        $( "#slider-1" ).slider( {
+            value:0,
+            min: 0,
+            max: .01,
+            step: .0001,
+            change: function( event, ui ) {
+                var value = ui.value;
+                myChart.data.datasets[1].data[0] = $("#slider-1").slider("option","value")
+                myChart.update();
+                <!--alert("Value: " + $("#slider-1").slider("option","value"));-->
+            }
+        });
+    });
+
+</script>
+<style>
+    .container {
+    margin-bottom:50px;
+    }
+</style>
+
+<body>
+    <div id = "slider-1" class="container"></div>
+</body>
 
 </body>
 </html>
