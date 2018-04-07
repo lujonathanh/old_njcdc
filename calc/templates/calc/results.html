@@ -138,32 +138,72 @@ var myChart = new Chart(ctx, {
 });
 </script>
 
-<script>
-    $(function() {
-        $( "#slider-1" ).slider( {
-            value:0,
-            min: 0,
-            max: .01,
-            step: .0001,
-            change: function( event, ui ) {
-                var value = ui.value;
-                myChart.data.datasets[1].data[0] = $("#slider-1").slider("option","value")
-                myChart.update();
-                <!--alert("Value: " + $("#slider-1").slider("option","value"));-->
-            }
-        });
-    });
-
-</script>
 <style>
-    .container {
-    margin-bottom:50px;
+#slider {
+    width: 50%;
+    margin: 2em auto;
+}
+</style>
+
+<style>
+    #slider label {
+        position: absolute;
+        width: 20px;
+        margin-top: 20px;
+        margin-left: -10px;
+        text-align: center;
     }
 </style>
 
+<style>
+    #custom-handle {
+        width: 5em;
+        height: 1.6em;
+        top: 50%;
+        margin-top: -.8em;
+        text-align: center;
+        line-height: 1.6em;
+    }
+</style>
+
+<script>
+    $( function() {
+        var scaleFactor = .01;
+        var minVal = -120;
+        var maxVal = 120;
+        var stepVal = 1
+        var handle = $( "#custom-handle" );
+        var unit = " min"
+
+        $( "#slider" ).slider({
+            create: function() {
+                handle.text( $( this ).slider( "value" ) + unit );
+                },
+            value: 0,
+            min: minVal,
+            max: maxVal,
+            step: stepVal,
+            slide: function( event, ui ) {
+                var value = ui.value;
+                handle.text( value + unit );
+                myChart.data.datasets[0].data[0] = $("#slider").slider("option","value")*scaleFactor;
+                myChart.update();
+            }
+        });
+    });
+</script>
+</head>
 <body>
-    <div id = "slider-1" class="container"></div>
-</body>
+
+<p>
+    Turn off the lights more each day:
+</p>
+
+<div id="slider">
+  <div id="custom-handle" class="ui-slider-handle"></div>
+</div>
+
+
 
 </body>
 </html>
