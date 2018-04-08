@@ -1,4 +1,7 @@
-# a file that contains various code snippets for populating the heroku database
+# a file that contains various code snippets for populating the database
+
+# to populate your local database:
+# run python manage.py shell, then copy this script into your shell
 
 import pandas as pd
 
