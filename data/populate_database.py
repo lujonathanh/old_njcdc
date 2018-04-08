@@ -34,26 +34,3 @@ for i in range(len(data.index)):
                 total_zipcode_footprint=data[cols[16]][i].replace(',', ''),
                 )
     z.save()
-
-
-z = Zipcode(zipcode=1,
-            population=2,
-            persons_per_household=3,
-            average_house_value=4,
-            income_per_household=5,
-            electricity=6,
-            nat_gas=7,
-            fuel_oil=8,
-            vehic_miles_traveled=9,
-            transport=10,
-            housing=11,
-            food=12,
-            goods=13,
-            services=14,
-            total_household_footprint=15,
-            households_per_zipcode=16,
-            total_zipcode_footprint=17,
-            )
-
-# Zipcode.objects.get(zipcode=7017)
-
