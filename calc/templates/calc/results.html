@@ -80,12 +80,12 @@
 
 <table class="table table-striped table-bordered">
     <thread>
-    <tr><td>Benefit</td><td>{{ up.benefit }}</td></tr>
-    <tr><td>Elec Cost</td><td>{{ up.elec_cost }}</td></tr>
-    <tr><td>Gasoline Cost</td><td>{{ up.gasoline_cost }}</td></tr>
-    <tr><td>Heating Cost</td><td>{{ up.heating_cost }}</td></tr>
-    <tr><td>Total Cost</td><td>{{ up.total_cost }}</td></tr>
-    <tr><td>Net</td><td>{{ up.net }}</td></tr>
+    <tr><td>Benefit</td><td>${{ up.benefit|stringformat:".2f" }}</td></tr>
+    <tr><td>Elec Cost</td><td>${{ up.elec_cost|stringformat:".2f" }}</td></tr>
+    <tr><td>Gasoline Cost</td><td>${{ up.gasoline_cost|stringformat:".2f" }}</td></tr>
+    <tr><td>Heating Cost</td><td>${{ up.heating_cost|stringformat:".2f" }}</td></tr>
+    <tr><td>Total Cost</td><td>${{ up.total_cost|stringformat:".2f" }}</td></tr>
+    <tr><td>Net</td><td>${{ up.net|stringformat:".2f" }}</td></tr>
 </thread>
 
 </table>

@@ -23,6 +23,13 @@ def validate_0to1(value):
                     params={'value': value},
                 )
 
+def validate_leq20(value):
+    if value > 20:
+        raise ValidationError(_('%(value)s is greater than 20'),
+                              params={'value': value},
+                              )
+
+PERIOD_CHOICES = (('month', 'Per Month'), ('year', 'Per Year'))
 
 ELEC_CHOICES = ( ('pseg', 'PSE&G'), ('rockland', 'Orange Rockland Electric'),
                  ('jcpl', 'Jersey Central Power & Light'), ('atlantic', 'Atlantic City Electric'))
@@ -263,11 +270,13 @@ def get_heating_co2(heating_type, heating_amt, heating_unit):
 class UserProfile(models.Model):
     # eventually would be cool to load default from other models...
 
-    fee = models.FloatField(default=10., validators=[validate_nonnegative])
-    rebate_portion = models.FloatField(default=0.7, validators=[validate_0to1])
+    fee = models.FloatField(default=30., validators=[validate_nonnegative], help_text="Fee, dollars per ton of CO2.")
+    rebate_portion = models.FloatField(default=0.7, validators=[validate_0to1], help_text="Portion of total revenue. The rest goes to sustainableinvestment and relief for vulnerable businesses and communities.")
+    period = models.CharField(choices=PERIOD_CHOICES, default='month', max_length=5, help_text="Time range for calculation.")
 
-    adults = models.PositiveIntegerField(default=1)
-    children = models.PositiveIntegerField(default=1)
+
+    adults = models.PositiveIntegerField(default=1, validators=[validate_leq20], help_text="Members of household 18 and older.")
+    children = models.PositiveIntegerField(default=0, validators=[validate_leq20], help_text="Members of household under 18.")
     CHILD_MULTIPLIER = 0.5
 
     ##############    GASOLINE    ##############
@@ -283,7 +292,7 @@ class UserProfile(models.Model):
     # the fundamental unit: electricity in kWh per month
 
     elec_amt = models.FloatField(default=1.0, validators=[validate_nonnegative])
-    elec_type = models.CharField(choices=ELEC_CHOICES, default='pseg', max_length=40)
+    elec_type = models.CharField(choices=ELEC_CHOICES, default='pseg', max_length=40, help_text="Your electric utility provider.")
     elec_unit = models.CharField(choices=ELEC_UNIT_CHOICES, default=get_possible_elec_units('pseg')[0],
                                     max_length=40)
 
@@ -300,7 +309,32 @@ class UserProfile(models.Model):
     def calculate_net(self):
         # TODO: update. remember should be monthly. should calculate with child as well
         # TODO: update with the correct units
-        REVENUEPERADULT = self.fee * 10
+
+
+        # In tons per year, 2015
+        # U.S. Energy Information Administration | Energy-Related Carbon Dioxide Emissions by State, 2000-2015
+        # https://www.eia.gov/environment/emissions/state/analysis/pdf/stateanalysis.pdf Accessed 4/7/2018
+        TOTALEMISSIONS = 111.9 * 10**6
+        if self.period == 'month':
+            TOTALEMISSIONS /= 12.0
+        elif self.period == 'year':
+            pass
+        else:
+            raise ValueError("Period " + str(self.period) + " not allowed.")
+
+        TOTALREVENUE = TOTALEMISSIONS * self.fee
+
+        # For 2017: https://www.census.gov/data/tables/2017/demo/popest/state-total.html
+        # Adult population from: https://www.census.gov/data/tables/2017/demo/popest/state-detail.html
+        # Accessed 04-07-2018
+        TOTALPOPULATION = 9005644
+        ADULT_POPULATION = 7026626
+        UNDER18_POPULATION = TOTALPOPULATION - ADULT_POPULATION
+
+
+
+        REVENUEPERADULT = TOTALREVENUE * 1.0 / (UNDER18_POPULATION * self.CHILD_MULTIPLIER + ADULT_POPULATION)
+
         self.DIVIDENDPERADULT =  REVENUEPERADULT * self.rebate_portion
         self.benefit = (self.CHILD_MULTIPLIER * self.children + self.adults) * self.DIVIDENDPERADULT
 
