@@ -93,7 +93,7 @@ def get_gasoline_co2_conversion(gasoline_type, gasoline_unit):
     elif gasoline_type == 'diesel':
         if gasoline_unit == 'gallon':
             return 22.4/2204.6
-    elif gasoline_type == 'biodiesel':
+    elif gasoline_type == 'b20':
         if gasoline_unit == 'gallon':
             return 17.9/2204.6
 
@@ -283,7 +283,7 @@ class UserProfile(models.Model):
 
     # the fundamental unit: gasoline in gallons per month
     gasoline_amt = models.FloatField(default=1.0, validators=[validate_nonnegative])
-    gasoline_type = models.CharField(choices=GASOLINE_CHOICES, default='e10', max_length=6)
+    gasoline_type = models.CharField(choices=GASOLINE_CHOICES, default='e10', max_length=9)
     gasoline_unit = models.CharField(choices=GASOLINE_UNIT_CHOICES, default=get_possible_gasoline_units('e10')[0],
                                     max_length=6)
 
